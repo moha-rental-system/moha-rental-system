@@ -11,9 +11,21 @@ The app is a static Vite single-page application. Deploy it to any static host t
 
 For another static host, configure unknown application routes to return `/index.html` with HTTP 200. This is needed for direct visits to `/tenant` and `/portal`.
 
+## Manual uploads to the existing Netlify site
+
+To switch `moha-rental-system` from Git-triggered deployments to Netlify Drop-style uploads, open the existing site's **Project configuration → Developer settings → Continuous deployment → Repository**, select **Manage repository**, then **Unlink the current repository**. This disables continuous deployment and removes the site's deploy keys and build hooks. Do not create a new site through Netlify Drop when updating this existing site.
+
+For each manual release:
+
+1. Set the `VITE_*` variables listed below in your local build environment. Netlify's build environment variables are not applied to drag-and-drop uploads.
+2. From `rental-management`, run `npm ci`, then `npm run build` on your computer.
+3. Open the existing site's **Deploys** page and drag the generated `rental-management/dist` folder into its deployment drop zone. Upload the built folder, not the source repository.
+
+The uploaded folder must contain `index.html`, the generated assets, and `_redirects`. Vite copies the existing `public/_redirects` file into the output to keep direct visits to application routes working. Netlify does not run a build for manual uploads. Repeat the local build and upload whenever the app or its build-time configuration changes.
+
 ## Hosting environment variables
 
-Configure these variables in the host's build environment:
+Configure these variables in the host's build environment for automated builds, or in your local build environment for manual uploads:
 
 - `VITE_SUPABASE_URL`
 - `VITE_SUPABASE_PUBLISHABLE_KEY`

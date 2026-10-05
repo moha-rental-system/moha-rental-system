@@ -1,9 +1,9 @@
 [build]
-  command = "npm run build"
+  base = "rental-management"
+  command = "npm ci --include=dev && npm run build"
   publish = "dist"
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-
