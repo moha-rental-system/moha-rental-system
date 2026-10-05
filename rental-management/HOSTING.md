@@ -9,6 +9,12 @@ The app is a static Vite single-page application. Deploy it to any static host t
 - Output directory: `dist`
 - Node.js: 20.19+ or 22.12+
 
+## Netlify deployment
+
+The repository-root `netlify.toml` sets `rental-management` as the base directory, runs `npm ci --include=dev && npm run build`, and publishes `dist` relative to that directory. The explicit installation step uses the committed lockfile and includes the development dependencies required by TypeScript and Vite, including for CLI deployments where dependencies have not already been installed. Deploy from the repository root so Netlify reads this configuration. The existing `public/_redirects` supplies the single-page application routing fallback.
+
+Set the hosting environment variables below in Netlify before deploying. A successful production deployment is required for these settings to take effect.
+
 For another static host, configure unknown application routes to return `/index.html` with HTTP 200. This is needed for direct visits to `/tenant` and `/portal`.
 
 ## Hosting environment variables
