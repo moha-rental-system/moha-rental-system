@@ -1,2 +1,5 @@
 [build]
-  functions = "functions"
+  base = "rental-management"
+  command = "npm ci --include=dev && npm run build"
+  publish = "dist"
+  functions = "../netlify/functions"
